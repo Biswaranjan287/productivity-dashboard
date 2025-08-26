@@ -16,9 +16,9 @@
         <nav>
             <div class="nav-in">
                 <h2>Productivity DashBoard</h2>
-            <div class="theme">
-                <h4>Change theme</h4>
-            </div>
+                <div class="theme">
+                    <h4>Change theme</h4>
+                </div>
             </div>
         </nav>
 
@@ -130,7 +130,13 @@
         </section>
         <section class="fullElem daily-goals-fullpage">
             <button class="back" id="4">Close</button>
-            Daily Goals
+            <div class="container">
+                <h2>🌟 Daily Goals</h2>
+                <input type="text" id="goalInput" placeholder="Enter a goal...">
+                <button onclick="addGoal()">Add</button>
+                <ul id="goalList"></ul>
+            </div>
+
         </section>
 
 

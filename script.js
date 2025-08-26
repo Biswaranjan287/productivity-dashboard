@@ -303,7 +303,7 @@ theme.addEventListener('click', function () {
     } else if (flag == 1) {
         rootElement.style.setProperty('--pri', '#F1EFEC')
         rootElement.style.setProperty('--sec', '#030303')
-        rootElement.style.setProperty('--tri1', '#D4C9BE')
+        rootElement.style.setProperty('--tri1', '#7d7266ff')
         rootElement.style.setProperty('--tri2', '#123458')
         flag = 2
     } else if (flag == 2) {
