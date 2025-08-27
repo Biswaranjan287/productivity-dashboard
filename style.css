@@ -552,7 +552,7 @@ nav {
 
 .daily-goals {
   height: 600px;
-  background: var(--pri);
+  background: var(--tri2);
   border-radius: 15px;
   padding: 25px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
@@ -630,7 +630,7 @@ nav {
 }
 
 .input-box button:hover {
-  background: #45a049;
+  background: #1a7750;
 }
 
 #errorMessage {
@@ -652,6 +652,7 @@ nav {
 
 .controls button {
   background: #2196f3;
+  font-weight: 500;
   color: #fff;
   border: none;
   padding: 8px 12px;
@@ -759,13 +760,10 @@ nav {
   background: #d32f2f;
 }
 
-/* ============================= */
-/*       Progress Bar            */
-/* ============================= */
 #progress {
   margin-top: 10px;
   font-weight: bold;
-  color: #34495e;
+  color: var(--pri);
 }
 
 #progressBar {
@@ -783,6 +781,6 @@ nav {
 }
 
 #progressBar::-webkit-progress-value {
-  background-color: #4caf50;
+  background-color: var(--green);
   border-radius: 6px;
 }

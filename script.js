@@ -376,7 +376,6 @@ function addGoal() {
     saveGoals();
 }
 
-// ========== Create Goal ==========
 function createGoal(text, completed, date = "", priority = "low") {
     const goalList = document.getElementById("goalList");
     const li = document.createElement("li");
