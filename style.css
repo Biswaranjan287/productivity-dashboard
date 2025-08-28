@@ -600,6 +600,10 @@ nav {
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
 }
 
+.input-box #goalInput{
+  color: var(--black);
+}
+
 .input-box #goalDate {
   color: var(--black);
 }
