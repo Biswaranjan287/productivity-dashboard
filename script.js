@@ -319,214 +319,141 @@ function changeTheme() {
 
 changeTheme()
 
-// Save goals in localStorage
-function saveGoals() {
-    const goals = [];
-    document.querySelectorAll("#goalList li").forEach(li => {
-        goals.push({
-            text: li.querySelector("span").textContent,
-            completed: li.classList.contains("completed")
-        });
-    });
-    localStorage.setItem("goals", JSON.stringify(goals));
-}
+function dailyGoals() {
+    document.addEventListener("DOMContentLoaded", () => {
+        const goalInput = document.getElementById("goalInput");
+        const goalDate = document.getElementById("goalDate");
+        const goalPriority = document.getElementById("goalPriority");
+        const addBtn = document.getElementById("addBtn");
+        const errorMessage = document.getElementById("errorMessage");
+        const goalList = document.getElementById("goalList");
 
-// Load goals from localStorage
-function loadGoals() {
-    const saved = JSON.parse(localStorage.getItem("goals")) || [];
-    saved.forEach(goal => {
-        createGoal(goal.text, goal.completed);
-    });
-    updateProgress();
-}
+        // Add goal handler
+        addBtn.addEventListener("click", () => {
+            const text = goalInput.value.trim();
+            const date = goalDate.value;
+            const priority = goalPriority.value;
 
-// Update progress bar & percentage
-function updateProgress() {
-    const goals = document.querySelectorAll("#goalList li");
-    const completed = document.querySelectorAll("#goalList li.completed");
+            if (text === "") {
+                errorMessage.textContent = "⚠️ Please enter a goal!";
+                return;
+            }
 
-    const percent = goals.length === 0 ? 0 : Math.round((completed.length / goals.length) * 100);
+            errorMessage.textContent = "";
+            createGoal(text, false, date, priority);
 
-    document.getElementById("progressFill").style.width = percent + "%";
-    document.getElementById("progressText").textContent = percent + "% Completed";
-}
+            goalInput.value = "";
+            goalDate.value = "";
+            goalPriority.value = "low";
 
-// Add a new goal
-// ========== Add Goal ==========
-function addGoal() {
-    const input = document.getElementById("goalInput");
-    const date = document.getElementById("goalDate").value;
-    const priority = document.getElementById("goalPriority").value;
-    const text = input.value.trim();
-    const error = document.getElementById("errorMessage");
-
-    if (!text) {
-        error.textContent = "⚠️ Please enter a goal!";
-        return;
-    }
-    error.textContent = "";
-
-    createGoal(text, false, date, priority);
-
-    input.value = "";
-    document.getElementById("goalDate").value = "";
-    document.getElementById("goalPriority").value = "low";
-
-    updateProgress();
-    saveGoals();
-}
-
-function createGoal(text, completed, date = "", priority = "low") {
-    const goalList = document.getElementById("goalList");
-    const li = document.createElement("li");
-
-    // Store data attributes
-    li.dataset.date = date;
-    li.dataset.priority = priority;
-
-    // Goal text
-    const goalText = document.createElement("span");
-    goalText.textContent = text + (date ? ` (${date})` : "") + ` [${priority}]`;
-    if (completed) li.classList.add("completed");
-
-    // Toggle complete on click
-    goalText.onclick = () => {
-        li.classList.toggle("completed");
-        updateProgress();
-        saveGoals();
-    };
-
-    // Edit button
-    const editBtn = document.createElement("button");
-    editBtn.textContent = "✏️";
-    editBtn.className = "edit-btn";
-    editBtn.onclick = (e) => {
-        e.stopPropagation();
-        if (goalText.contentEditable === "true") {
-            goalText.contentEditable = "false";
-            editBtn.textContent = "✏️";
             saveGoals();
-        } else {
-            goalText.contentEditable = "true";
-            goalText.focus();
-            editBtn.textContent = "💾";
-        }
-    };
-
-    // Delete button
-    const delBtn = document.createElement("button");
-    delBtn.textContent = "X";
-    delBtn.className = "delete-btn";
-    delBtn.onclick = (e) => {
-        e.stopPropagation();
-        goalList.removeChild(li);
-        updateProgress();
-        saveGoals();
-    };
-
-    li.appendChild(goalText);
-    li.appendChild(editBtn);
-    li.appendChild(delBtn);
-    goalList.appendChild(li);
-}
-
-// ========== Update Progress ==========
-function updateProgress() {
-    const allGoals = document.querySelectorAll("#goalList li");
-    const completedGoals = document.querySelectorAll("#goalList li.completed");
-    const progress = document.getElementById("progress");
-    const progressBar = document.getElementById("progressBar");
-
-    const total = allGoals.length;
-    const completed = completedGoals.length;
-
-    progress.textContent = `✅ ${completed}/${total} goals completed`;
-    progressBar.value = total === 0 ? 0 : (completed / total) * 100;
-}
-
-// ========== Clear All Goals ==========
-function clearAllGoals() {
-    document.getElementById("goalList").innerHTML = "";
-    updateProgress();
-    saveGoals();
-}
-
-// ========== Filter Goals ==========
-function filterGoals(type) {
-    document.querySelectorAll("#goalList li").forEach(li => {
-        if (type === "all") li.style.display = "flex";
-        if (type === "completed") li.style.display = li.classList.contains("completed") ? "flex" : "none";
-        if (type === "pending") li.style.display = !li.classList.contains("completed") ? "flex" : "none";
-    });
-}
-
-// ========== Search Goals ==========
-function searchGoals() {
-    const query = document.getElementById("searchBox").value.toLowerCase();
-    document.querySelectorAll("#goalList li").forEach(li => {
-        const text = li.querySelector("span").textContent.toLowerCase();
-        li.style.display = text.includes(query) ? "flex" : "none";
-    });
-}
-
-// ========== Sort Goals ==========
-function sortGoals(type) {
-    const goalList = document.getElementById("goalList");
-    const goals = Array.from(goalList.children);
-
-    if (type === "date") {
-        goals.sort((a, b) => new Date(a.dataset.date || 0) - new Date(b.dataset.date || 0));
-    } else if (type === "priority") {
-        const priorityOrder = { "high": 3, "medium": 2, "low": 1 };
-        goals.sort((a, b) => priorityOrder[b.dataset.priority] - priorityOrder[a.dataset.priority]);
-    }
-
-    goalList.innerHTML = "";
-    goals.forEach(goal => goalList.appendChild(goal));
-}
-
-// ========== Save & Load Goals ==========
-function saveGoals() {
-    const goals = [];
-    document.querySelectorAll("#goalList li").forEach(li => {
-        const span = li.querySelector("span");
-        goals.push({
-            text: span.textContent.replace(/\s\(\d{4}-\d{2}-\d{2}\)\s\[(low|medium|high)\]$/, ""),
-            completed: li.classList.contains("completed"),
-            date: li.dataset.date,
-            priority: li.dataset.priority
+            updateProgress();
         });
+
+        // Create Goal Element
+        function createGoal(text, completed, date = "", priority = "low") {
+            const li = document.createElement("li");
+
+            // Store raw text & meta in dataset
+            li.dataset.text = text;
+            li.dataset.date = date;
+            li.dataset.priority = priority;
+
+            if (completed) li.classList.add("completed");
+
+            // ✅ Clicking on <li> (not buttons) toggles complete
+            li.addEventListener("click", (e) => {
+                if (e.target.tagName === "BUTTON") return; // don’t toggle when clicking buttons
+                li.classList.toggle("completed");
+                updateProgress();
+                saveGoals();
+            });
+
+            // Goal text
+            const goalText = document.createElement("span");
+            goalText.textContent = text + (date ? ` (${date})` : "");
+
+            // Priority label
+            const priorityLabel = document.createElement("small");
+            priorityLabel.textContent = `[${priority}]`;
+            priorityLabel.className = "priority-label";
+
+            // Edit button
+            const editBtn = document.createElement("button");
+            editBtn.textContent = "✏️";
+            editBtn.className = "edit-btn";
+            editBtn.onclick = (e) => {
+                e.stopPropagation();
+                if (goalText.contentEditable === "true") {
+                    goalText.contentEditable = "false";
+                    editBtn.textContent = "✏️";
+                    li.dataset.text = goalText.textContent.replace(/\s\(\d{4}-\d{2}-\d{2}\)$/, "");
+                    saveGoals();
+                } else {
+                    goalText.contentEditable = "true";
+                    goalText.focus();
+                    editBtn.textContent = "💾";
+                }
+            };
+
+            // Delete button
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "X";
+            delBtn.className = "delete-btn";
+            delBtn.onclick = (e) => {
+                e.stopPropagation();
+                goalList.removeChild(li);
+                updateProgress();
+                saveGoals();
+            };
+
+            li.appendChild(goalText);
+            li.appendChild(priorityLabel);
+            li.appendChild(editBtn);
+            li.appendChild(delBtn);
+            goalList.appendChild(li);
+        }
+
+        // Save goals to localStorage
+        function saveGoals() {
+            const goals = [];
+            document.querySelectorAll("#goalList li").forEach((li) => {
+                goals.push({
+                    text: li.dataset.text,
+                    completed: li.classList.contains("completed"),
+                    date: li.dataset.date,
+                    priority: li.dataset.priority,
+                });
+            });
+            localStorage.setItem("dailyGoals", JSON.stringify(goals));
+        }
+
+        // Load goals from localStorage
+        function loadGoals() {
+            const storedGoals = JSON.parse(localStorage.getItem("dailyGoals")) || [];
+            storedGoals.forEach((goal) => {
+                createGoal(goal.text, goal.completed, goal.date, goal.priority);
+            });
+            updateProgress();
+        }
+
+        // Update progress bar
+        function updateProgress() {
+            const allGoals = document.querySelectorAll("#goalList li");
+            const completedGoals = document.querySelectorAll("#goalList li.completed");
+            const progress = document.getElementById("progress");
+            const progressBar = document.getElementById("progressBar");
+
+            const total = allGoals.length;
+            const completed = completedGoals.length;
+
+            progress.textContent = `✅ ${completed}/${total} goals completed`;
+            progressBar.value = total === 0 ? 0 : (completed / total) * 100;
+        }
+
+        // Initialize
+        loadGoals();
     });
-    localStorage.setItem("dailyGoals", JSON.stringify(goals));
 }
 
-function loadGoals() {
-    const savedGoals = JSON.parse(localStorage.getItem("dailyGoals")) || [];
-    savedGoals.forEach(goal => createGoal(goal.text, goal.completed, goal.date, goal.priority));
-    updateProgress();
-}
-
-// ========== Attach Event Listeners ==========
-window.addEventListener("DOMContentLoaded", () => {
-    // Load saved goals
-    loadGoals();
-
-    // Add goal
-    document.getElementById("addBtn").addEventListener("click", addGoal);
-
-    // Search goals
-    document.getElementById("searchBox").addEventListener("input", searchGoals);
-
-    // Filter buttons
-    document.querySelectorAll(".controls button").forEach(btn => {
-        const type = btn.getAttribute("data-filter");
-        if (type) btn.addEventListener("click", () => filterGoals(type));
-    });
-
-    // Sort buttons
-    document.getElementById("sortPriority")?.addEventListener("click", () => sortGoals("priority"));
-    document.getElementById("sortDate")?.addEventListener("click", () => sortGoals("date"));
-
-    // Clear all
-    document.getElementById("clearAll")?.addEventListener("click", clearAllGoals);
-});
+dailyGoals();

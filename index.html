@@ -132,46 +132,46 @@
             <button class="back" id="4">Close</button>
             <h2>🌟 Daily Goals</h2>
 
-        <div class="daily-goals">
-            <div class="main-box">
-                <!-- Left side: Input & Controls -->
-                <div class="input-box">
-                    <input type="text" id="goalInput" placeholder="Enter a goal...">
-                    <input type="date" id="goalDate">
-                    <select id="goalPriority">
-                        <option id="option-1" value="low">🟢 Low</option>
-                        <option id="option-2" value="medium">🟡 Medium</option>
-                        <option id="option-3" value="high">🔴 High</option>
-                    </select>
-                    <span id="errorMessage"></span>
-                    <button id="addBtn">Add</button>
+            <div class="goal-mainbox">
+                <div class="daily-goals">
+                    <!-- Left side: Input & Controls -->
+                    <div class="input-box">
+                        <input type="text" id="goalInput" placeholder="Enter a goal...">
+                        <input type="date" id="goalDate">
+                        <select id="goalPriority">
+                            <option id="option-1" value="low">🟢 Low</option>
+                            <option id="option-2" value="medium">🟡 Medium</option>
+                            <option id="option-3" value="high">🔴 High</option>
+                        </select>
+                        <span id="errorMessage"></span>
+                        <button id="addBtn">Add</button>
 
-                    <!-- Controls -->
-                    <div class="controls">
-                        <input type="text" id="searchBox" placeholder="Search goals...">
-                        <button data-filter="all">All</button>
-                        <button data-filter="completed">Completed</button>
-                        <button data-filter="pending">Pending</button>
-                        <button id="clearAll">Clear All</button>
-                        <button id="sortPriority">Sort by Priority</button>
-                        <button id="sortDate">Sort by Date</button>
+                        <!-- Controls -->
+                        <div class="controls">
+                            <input type="text" id="searchBox" placeholder="Search goals...">
+                            <button data-filter="all">All</button>
+                            <button data-filter="completed">Completed</button>
+                            <button data-filter="pending">Pending</button>
+                            <button id="clearAll">Clear All</button>
+                            <button id="sortPriority">Sort by Priority</button>
+                            <button id="sortDate">Sort by Date</button>
+                        </div>
+                        <p id="progress">✅ 0/0 goals completed</p>
+                        <progress id="progressBar" value="0" max="100"></progress>
                     </div>
-                    <p id="progress">✅ 0/0 goals completed</p>
-                    <progress id="progressBar" value="0" max="100"></progress>
                 </div>
 
                 <div class="goal-list-box">
-                    <h3>My Goals :</h3>
                     <ul id="goalList"></ul>
-                    
+
                 </div>
             </div>
-        </div>
+        </section>
+
     </div>
 
 
 
-        </section>
 
 
     </div>

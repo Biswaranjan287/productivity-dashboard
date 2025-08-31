@@ -550,37 +550,55 @@ nav {
   margin-bottom: 40px;
 }
 
+.goal-mainbox{
+  height: 650px;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  
+}
+
 .daily-goals {
-  height: 600px;
-  background: var(--tri2);
+  height: 100%;
   border-radius: 15px;
   padding: 25px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
+  width: 40%;
+  background-color: var(--tri2);
 }
+
+.goal-list-box{
+  height: 650px;
+  max-width: 800px;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+}
+
 
 #goalList li span {
   color: #2c3e50; /* dark text for readability */
   font-weight: 500;
-}
-
-#goalList li span {
   flex: 1;
   margin-right: 10px;
 }
 
-.main-box {
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+#goalList {
+  width: 97%;
 }
 
+
+
 .input-box {
-  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 15px;
+  width: 100%;
 }
 
 .input-box input,
@@ -624,7 +642,7 @@ nav {
 .input-box button {
   padding: 12px;
   font-size: 20px;
-  background: var(--green);
+  background: var(--tri1);
   color: var(--pri);
   font-weight: 600;
   border: none;
@@ -634,7 +652,7 @@ nav {
 }
 
 .input-box button:hover {
-  background: #1a7750;
+  background: var(--sec);
 }
 
 #errorMessage {
@@ -671,17 +689,11 @@ nav {
 
 .goal-list-box {
   flex: 1;
-  min-width: 300px;
-  max-height: 550px;
+  height: 100%;
   overflow-y: auto;
   padding-right: 5px;
   font-size: 20px;
-}
-
-.goal-list-box h3 {
-  margin-bottom: 10px;
-  color: var(--black);
-  font-size: 20px;
+  background-color: var(--tri2);
 }
 
 .goal-list-box::-webkit-scrollbar {
