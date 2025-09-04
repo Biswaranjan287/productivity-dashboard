@@ -541,9 +541,6 @@ nav {
   scale: 0.96;
 }
 
-/* .daily-goals-fullpage {
-  display: block;
-} */
 
 .daily-goals-fullpage h2 {
   font-size: 2.5rem;
@@ -583,7 +580,7 @@ nav {
 
 #goalList li span {
   color: #2c3e50; /* dark text for readability */
-  font-weight: 500;
+  font-weight: 550;
   flex: 1;
   margin-right: 10px;
 }
@@ -599,6 +596,7 @@ nav {
   flex-direction: column;
   gap: 15px;
   width: 100%;
+  
 }
 
 .input-box input,
@@ -642,17 +640,16 @@ nav {
 .input-box button {
   padding: 12px;
   font-size: 20px;
-  background: var(--tri1);
-  color: var(--pri);
-  font-weight: 600;
+background-color: var(--tri1);
+  border-radius: 5px;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
+  box-shadow: 5px 5px 0px var(--black);
+  transition: all ease 0.2s;
+  font-weight: 600;
 }
 
-.input-box button:hover {
-  background: var(--sec);
+.input-box button:active {
+  box-shadow: 0px 0px 0px var(--black);
 }
 
 #errorMessage {
@@ -800,3 +797,4 @@ nav {
   background-color: var(--green);
   border-radius: 6px;
 }
+
